@@ -52,10 +52,10 @@ public class Login extends JFrame{
         passwordTextField.setBorder(BorderFactory.createEmptyBorder()); //removes borders of the text field
         p2.add(passwordTextField);
         
-        JButton login = new JButton("Login");
+        JButton login = new JButton("Login"); //creates button
         login.setBounds(60,200,130,30);
         login.setBackground(new Color(133,193,233));
-        login.setForeground(Color.WHITE);
+        login.setForeground(Color.WHITE);       //sets the text color
         login.setBorder(new LineBorder(new Color(133,193,233)));
         p2.add(login);
         
