@@ -21,7 +21,7 @@ public class Signup extends JFrame implements ActionListener{
         p1.setLayout(null);
         add(p1);
         
-        JLabel lblUserName = new JLabel("User Name");
+        JLabel lblUserName = new JLabel("Username");
         lblUserName.setBounds(50,20,125,25);
         lblUserName.setFont(new Font("Tahoma", Font.BOLD, 14));
         p1.add(lblUserName);
