@@ -4,10 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
 import java.awt.event.*;
+import java.sql.*;
 
 public class Login extends JFrame implements ActionListener{
     
     JButton login, signup, forgetPwd;
+    JTextField userNameTextField, passwordTextField;
+    
     Login() {
         setSize(900,400);
         setLocation(350,200);
@@ -39,7 +42,7 @@ public class Login extends JFrame implements ActionListener{
         lblUserName.setFont(new Font("SAN_SERIF", Font.PLAIN, 20));
         p2.add(lblUserName);
         
-        JTextField  userNameTextField= new JTextField();  //creates a text field
+        userNameTextField= new JTextField();  //creates a text field
         userNameTextField.setBounds(60,60,300,30);
         userNameTextField.setBorder(BorderFactory.createEmptyBorder()); //removes borders of the text field
         p2.add(userNameTextField);
@@ -49,7 +52,7 @@ public class Login extends JFrame implements ActionListener{
         lblPassword.setFont(new Font("SAN_SERIF", Font.PLAIN, 20));
         p2.add(lblPassword);
         
-        JTextField  passwordTextField= new JTextField();  //creates a text field
+        passwordTextField= new JTextField();  //creates a text field
         passwordTextField.setBounds(60,150,300,30);
         passwordTextField.setBorder(BorderFactory.createEmptyBorder()); //removes borders of the text field
         p2.add(passwordTextField);
@@ -90,7 +93,24 @@ public class Login extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ae){ 
         
         if(ae.getSource() == login){
-            
+            try{
+                String username = userNameTextField.getText();
+                String password = passwordTextField.getText();
+                
+                String query = "select * from account where username = '"+username+"' AND password = '"+password+"'";
+                Conn conn = new Conn();
+               ResultSet rs = conn.s.executeQuery(query);
+               
+               if(rs.next()){
+                   setVisible(false);
+                   new Loading(username);
+               }else {
+                   JOptionPane.showMessageDialog(null, "Incorrect username or password");
+               }
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }else if(ae.getSource() == signup){
             setVisible(false);
             new Signup();
