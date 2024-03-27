@@ -14,7 +14,7 @@ public class AddCustomer extends JFrame implements ActionListener{
     JButton add, back;
     
     AddCustomer(String username) {
-        setBounds(450,200,580,550);
+        setBounds(400,180,850,530);
         setLayout(null);
         getContentPane().setBackground(Color.WHITE);
         

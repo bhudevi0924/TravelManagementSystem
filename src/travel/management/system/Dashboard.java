@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class Dashboard extends JFrame implements ActionListener{
     
     String username;
-    JButton addPersonalDetails;
+    JButton addPersonalDetails, viewPersonalDetails;
             
     Dashboard(String username) {
         this.username = username;
@@ -46,6 +46,7 @@ public class Dashboard extends JFrame implements ActionListener{
         addPersonalDetails.setForeground(Color.WHITE);
         addPersonalDetails.setFont(new Font("Tahoma", Font.PLAIN, 20));
         addPersonalDetails.setMargin(new Insets(0,0,0,60));
+        addPersonalDetails.addActionListener(this);
         p2.add(addPersonalDetails);
         
         JButton updatePersonalDetails = new JButton("Update Personal Details");
@@ -56,12 +57,13 @@ public class Dashboard extends JFrame implements ActionListener{
         updatePersonalDetails.setMargin(new Insets(0,0,0,30));
         p2.add(updatePersonalDetails);
         
-        JButton viewPersonalDetails = new JButton("View Details");
+        viewPersonalDetails = new JButton("View Details");
         viewPersonalDetails.setBounds(0,80,300,40);
         viewPersonalDetails.setBackground(new Color(0,0,102));
         viewPersonalDetails.setForeground(Color.WHITE);
         viewPersonalDetails.setFont(new Font("Tahoma", Font.PLAIN, 20));
         viewPersonalDetails.setMargin(new Insets(0,0,0,130));
+        viewPersonalDetails.addActionListener(this);
         p2.add(viewPersonalDetails);
         
         JButton deletePersonalDetails = new JButton("Delete Personal Details");
@@ -176,9 +178,11 @@ public class Dashboard extends JFrame implements ActionListener{
         setVisible(true);
     }
     
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(ActionEvent ae){ 
         if(ae.getSource() == addPersonalDetails) {
             new AddCustomer(username);
+        }else if(ae.getSource() == viewPersonalDetails) {
+            new ViewCustomer(username);
         }
     }
     
