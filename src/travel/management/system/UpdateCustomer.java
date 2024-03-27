@@ -5,18 +5,23 @@ import java.awt.*;
 import java.sql.*;
 import java.awt.event.*;
 
-public class AddCustomer extends JFrame implements ActionListener{
+public class UpdateCustomer extends JFrame implements ActionListener{
     
     JLabel lblUsername, lblName;
     JComboBox comboId; 
-    JTextField numberTextField, countryTextField, addressTextField, phoneNumberTextField, emailTextField;
-    JRadioButton male, female;
-    JButton add, back;
+    JTextField numberTextField, countryTextField, addressTextField, phoneNumberTextField, emailTextField,
+            idTextField, genderTextField;
+    JButton update, back;
     
-    AddCustomer(String username) {
+    UpdateCustomer(String username) {
         setBounds(400,180,850,530);
         setLayout(null);
         getContentPane().setBackground(Color.WHITE);
+        
+        JLabel text = new JLabel("Update Customer Details");
+        text.setBounds(50,0,300,25);
+        text.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        add(text);
         
         JLabel labelUsername = new JLabel("Username");
         labelUsername.setBounds(30,50,150,25);
@@ -30,10 +35,9 @@ public class AddCustomer extends JFrame implements ActionListener{
         labelId.setBounds(30,90,150,25);
         add(labelId);
         
-        comboId = new JComboBox(new String[] {"Passport", "Aadhar Card", "Pan Card", "Ration Card"});
-        comboId.setBounds(220,90,150,25);
-        comboId.setBackground(Color.WHITE);
-        add(comboId);
+        idTextField = new JTextField();
+        idTextField.setBounds(220,90,150,25);
+        add(idTextField);
         
         JLabel labelNumber = new JLabel("Number");
         labelNumber.setBounds(30,130,150,25);
@@ -55,19 +59,9 @@ public class AddCustomer extends JFrame implements ActionListener{
         labelGender.setBounds(30,210,150,25);
         add(labelGender);
         
-        male = new JRadioButton("Male");
-        male.setBounds(220,210,70,25);
-        male.setBackground(Color.WHITE);
-        add(male);
-        
-        female = new JRadioButton("Female");
-        female.setBounds(300,210,70,25);
-        female.setBackground(Color.WHITE);
-        add(female);
-        
-        ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(male);
-        buttonGroup.add(female);
+        genderTextField = new JTextField();
+        genderTextField.setBounds(220,210,150,25);
+        add(genderTextField);
         
         JLabel labelCountry = new JLabel("Country");
         labelCountry.setBounds(30,250,150,25);
@@ -101,12 +95,12 @@ public class AddCustomer extends JFrame implements ActionListener{
         emailTextField.setBounds(220,370,150,25);
         add(emailTextField);
         
-        add = new JButton("Add");
-        add.setBackground(Color.BLACK);
-        add.setForeground(Color.WHITE);
-        add.setBounds(70,430,100,25);
-        add.addActionListener(this);
-        add(add);
+        update = new JButton("Update");
+        update.setBackground(Color.BLACK);
+        update.setForeground(Color.WHITE);
+        update.setBounds(70,430,100,25);
+        update.addActionListener(this);
+        add(update);
         
         back = new JButton("Back");
         back.setBackground(Color.BLACK);
@@ -115,20 +109,27 @@ public class AddCustomer extends JFrame implements ActionListener{
         back.addActionListener(this);
         add(back);
         
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/newcustomer.jpg"));
-        Image i2 = i1.getImage().getScaledInstance(400, 500, Image.SCALE_DEFAULT);
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/update.png"));
+        Image i2 = i1.getImage().getScaledInstance(200, 400, Image.SCALE_DEFAULT);
         ImageIcon i3 = new ImageIcon(i2);
         JLabel image = new JLabel(i3);
-        image.setBounds(400,40,450,420);
+        image.setBounds(400,50,450,400);
         add(image);
         
         try{
             Conn conn = new Conn();
-            String query = "select * from account where username = 'bhudevi'";
+            String query = "select * from customer where username = '"+username+"'";
            ResultSet result = conn.s.executeQuery(query);
             while(result.next()) {
                 lblUsername.setText(result.getString("username"));
                 lblName.setText(result.getString("name"));
+                idTextField.setText(result.getString("id"));
+                numberTextField.setText(result.getString("number"));
+                genderTextField.setText(result.getString("gender"));
+                countryTextField.setText(result.getString("country"));
+                addressTextField.setText(result.getString("address"));
+                phoneNumberTextField.setText(result.getString("phoneNumber"));
+                emailTextField.setText(result.getString("email"));
             }
             
         } catch (Exception e) {
@@ -139,17 +140,12 @@ public class AddCustomer extends JFrame implements ActionListener{
     }
     
     public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource() == add){
+        if(ae.getSource() == update){
             String username = lblUsername.getText();
-            String id = (String) comboId.getSelectedItem();
+            String id = idTextField.getText();
             String number = numberTextField.getText();
             String name = lblName.getText();
-            String gender = null;
-            if(male.isSelected()) {
-                gender = "Male";
-            }else{
-                gender = "Female";
-            }
+            String gender = genderTextField.getText();
             String country = countryTextField.getText();
             String address = addressTextField.getText();
             String phoneNumber = phoneNumberTextField.getText();
@@ -157,11 +153,11 @@ public class AddCustomer extends JFrame implements ActionListener{
             
             try{
                 Conn conn = new Conn();
-                String query = "insert into customer values('"+username+"', '"+id+"', '"+number+"', "
-                        + "'"+name+"', '"+gender+"', '"+country+"', '"+address+"', '"+phoneNumber+"', '"+email+"')";
+                String query = "update customer set username = '"+username+"', id = '"+id+"', number = '"+number+"',"
+                        + " name = '"+name+"', gender = '"+gender+"', country = '"+country+"', address = '"+address+"', phoneNumber = '"+phoneNumber+"', email = '"+email+"'";
                 conn.s.executeUpdate(query);
                 
-                JOptionPane.showMessageDialog(null, "Customer details added successfully.");
+                JOptionPane.showMessageDialog(null, "Customer details updated successfully.");
                 setVisible(false);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -172,6 +168,7 @@ public class AddCustomer extends JFrame implements ActionListener{
     }
     
     public static void main (String[] args) {
-        new AddCustomer("");
+        new UpdateCustomer("bhudevi");
     }
 }
+
