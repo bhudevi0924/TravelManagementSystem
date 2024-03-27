@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class Dashboard extends JFrame implements ActionListener{
     
     String username;
-    JButton addPersonalDetails, viewPersonalDetails;
+    JButton addPersonalDetails, viewPersonalDetails, checkPackages, updatePersonalDetails;
             
     Dashboard(String username) {
         this.username = username;
@@ -49,12 +49,13 @@ public class Dashboard extends JFrame implements ActionListener{
         addPersonalDetails.addActionListener(this);
         p2.add(addPersonalDetails);
         
-        JButton updatePersonalDetails = new JButton("Update Personal Details");
+        updatePersonalDetails = new JButton("Update Personal Details");
         updatePersonalDetails.setBounds(0,40,300,40);
         updatePersonalDetails.setBackground(new Color(0,0,102));
         updatePersonalDetails.setForeground(Color.WHITE);
         updatePersonalDetails.setFont(new Font("Tahoma", Font.PLAIN, 20));
         updatePersonalDetails.setMargin(new Insets(0,0,0,30));
+        updatePersonalDetails.addActionListener(this);
         p2.add(updatePersonalDetails);
         
         viewPersonalDetails = new JButton("View Details");
@@ -74,12 +75,13 @@ public class Dashboard extends JFrame implements ActionListener{
         deletePersonalDetails.setMargin(new Insets(0,0,0,40));
         p2.add(deletePersonalDetails);
         
-        JButton checkPackages = new JButton("Check Package");
+        checkPackages = new JButton("Check Package");
         checkPackages.setBounds(0,160,300,40);
         checkPackages.setBackground(new Color(0,0,102));
         checkPackages.setForeground(Color.WHITE);
         checkPackages.setFont(new Font("Tahoma", Font.PLAIN, 20));
         checkPackages.setMargin(new Insets(0,0,0,110));
+        checkPackages.addActionListener(this);
         p2.add(checkPackages);
         
         JButton bookPackage = new JButton("Book Package");
@@ -181,8 +183,12 @@ public class Dashboard extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ae){ 
         if(ae.getSource() == addPersonalDetails) {
             new AddCustomer(username);
+        }else if (ae.getSource()==updatePersonalDetails){
+            new UpdateCustomer(username);
         }else if(ae.getSource() == viewPersonalDetails) {
             new ViewCustomer(username);
+        }else if(ae.getSource() == checkPackages){
+            new CheckPackage();
         }
     }
     
