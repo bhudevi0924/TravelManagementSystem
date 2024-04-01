@@ -12,7 +12,7 @@ public class Destinations extends JFrame implements Runnable{
     
     Destinations() {
         
-        setBounds(500, 200, 800, 500);
+        setBounds(350, 200, 1000, 500);
         
         ImageIcon i1=null, i2=null, i3=null, i4=null, i5=null, i6=null, i7=null, i8=null, i9=null, i10 = null;
         ImageIcon[] image = new ImageIcon[] {i1, i2, i3, i4, i5, i6, i7, i8, i9, i10};
@@ -25,10 +25,10 @@ public class Destinations extends JFrame implements Runnable{
         
         for(int i=0; i<=9; i++){
         image[i] = new ImageIcon(ClassLoader.getSystemResource("icons/dest"+ (i+1) + ".jpg"));
-        jimage[i] = image[i].getImage().getScaledInstance(800, 600, Image.SCALE_DEFAULT);
+        jimage[i] = image[i].getImage().getScaledInstance(1000, 500, Image.SCALE_DEFAULT);
         kimage[i] = new ImageIcon(jimage[i]);
         label[i] = new JLabel(kimage[i]);
-        label[i].setBounds(0,0,800,600);
+        label[i].setBounds(0,0,1000, 500);
         add(label[i]);
     }
         

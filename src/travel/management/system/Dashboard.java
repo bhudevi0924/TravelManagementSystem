@@ -8,7 +8,7 @@ public class Dashboard extends JFrame implements ActionListener{
     
     String username;
     JButton addPersonalDetails, viewPersonalDetails, checkPackages, updatePersonalDetails, bookPackage, viewPackage,
-            viewHotels, destinations, bookHotel, viewBookedHotel;
+            viewHotels, destinations, bookHotel, viewBookedHotel, payments, calculator, notepad, about;
             
     Dashboard(String username) {
         this.username = username;
@@ -139,36 +139,40 @@ public class Dashboard extends JFrame implements ActionListener{
         destinations.addActionListener(this);
         p2.add(destinations);
         
-        JButton payments = new JButton("payments");
+        payments = new JButton("payments");
         payments.setBounds(0,440,300,40);
         payments.setBackground(new Color(0,0,102));
         payments.setForeground(Color.WHITE);
         payments.setFont(new Font("Tahoma", Font.PLAIN, 20));
         payments.setMargin(new Insets(0,0,0,155));
+        payments.addActionListener(this);
         p2.add(payments);
         
-        JButton calculator = new JButton("Calculator");
+        calculator = new JButton("Calculator");
         calculator.setBounds(0,480,300,40);
         calculator.setBackground(new Color(0,0,102));
         calculator.setForeground(Color.WHITE);
         calculator.setFont(new Font("Tahoma", Font.PLAIN, 20));
         calculator.setMargin(new Insets(0,0,0,145));
+        calculator.addActionListener(this);
         p2.add(calculator);
         
-        JButton notepad = new JButton("Notepad");
+        notepad = new JButton("Notepad");
         notepad.setBounds(0,520,300,40);
         notepad.setBackground(new Color(0,0,102));
         notepad.setForeground(Color.WHITE);
         notepad.setFont(new Font("Tahoma", Font.PLAIN, 20));
         notepad.setMargin(new Insets(0,0,0,155));
+        notepad.addActionListener(this);
         p2.add(notepad);
         
-        JButton about = new JButton("About");
+        about = new JButton("About");
         about.setBounds(0,560,300,40);
         about.setBackground(new Color(0,0,102));
         about.setForeground(Color.WHITE);
         about.setFont(new Font("Tahoma", Font.PLAIN, 20));
         about.setMargin(new Insets(0,0,0,175));
+        about.addActionListener(this);
         p2.add(about);
         
         ImageIcon i4 = new ImageIcon(ClassLoader.getSystemResource("icons/home.jpg"));
@@ -208,6 +212,24 @@ public class Dashboard extends JFrame implements ActionListener{
             new BookHotel(username);
         } else if(ae.getSource() == viewBookedHotel) {
             new ViewBookedHotel(username);
+        } else if(ae.getSource() == payments) {
+            new Payment();
+        } else if(ae.getSource() == calculator) {
+            try{
+                Runtime.getRuntime().exec("calc.exe");
+
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        } else if(ae.getSource() == notepad) {
+            try{
+                Runtime.getRuntime().exec("notepad.exe");
+
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        } else if (ae.getSource() == about) {
+            new About();
         }
     }
     
